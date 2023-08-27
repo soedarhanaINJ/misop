@@ -1,12 +1,13 @@
 from django.contrib import admin
-from .models import Posting, Category
+from .models import Movie, Category
 
 class AdminCategory(admin.ModelAdmin):
     list_display = ('name',)
 
 admin.site.register(Category, AdminCategory)
 
-class AdminPosting(admin.ModelAdmin):
-    list_display = ('judul_film', 'category', 'post_date')
+class AdminMovie(admin.ModelAdmin):
+    list_display = ('name', 'category', 'post_date')
+    readonly_fields = ('id',)
 
-admin.site.register(Posting, AdminPosting)
+admin.site.register(Movie, AdminMovie)
