@@ -6,13 +6,9 @@ from film.forms import UploadForm
 from .models import Movie
 
 def index(request):
-    allmovie = Movie.objects.all().values()
     template = loader.get_template('index.html')
-    context = {
-        'allmovie': allmovie
-    }
 
-    return HttpResponse(template.render(context, request))
+    return HttpResponse(template.render())
 
 def movie(request, movie_id):
     movie = Movie.objects.get(pk=movie_id)
