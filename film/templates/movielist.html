@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for x in mymovie %}
+    <div class="container mt-5">
+        <div class="row align-items-start">
+            <div class="col">
+                <div class="card mt-5" style="width: 18rem;">
+                    <img src="{{ x.image.url }}" class="card-img-top" alt="{{ movie.name }}">
+                    
+                    <div class="card-body">
+                        <h5 class="card-title">{{ x.name }}</h5>
+                        <p class="card-text">{{ x.description }}</p>
+                        <a href="#" class="btn btn-dark">Watch Full MOVIE</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}

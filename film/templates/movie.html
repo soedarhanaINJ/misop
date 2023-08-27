@@ -1,9 +1,18 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
-    <h2>
-        {{ movie.name }}
-    </h2>
-    <img src="{{ movie.image.url }}" alt="first movie" width="500">
-
+<div class="container">
+    <div class="row align-items-start">
+        <div class="col-md-8 mt-5 left">
+            <div class="card mt-5" style="width: 18rem;">
+                <img src="{{ movies.image.url }}" class="card-img-top" alt="{{ movie.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ movies.name }}</h5>
+                    <p class="card-text">{{ movies.description }}</p>
+                    <a href="#" class="btn btn-dark">Watch Full MOVIE</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

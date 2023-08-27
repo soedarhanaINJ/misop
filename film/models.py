@@ -13,4 +13,4 @@ class Movie(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to='media', blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-
+    

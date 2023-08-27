@@ -6,15 +6,21 @@ from film.forms import UploadForm
 from .models import Movie
 
 def index(request):
+    mymovie = Movie.objects.all()
     template = loader.get_template('index.html')
 
     return HttpResponse(template.render())
 
+def movielist(request):
+    mymovie = Movie.objects.all()
+    
+    return render(request, 'movielist.html', {'mymovie': mymovie})
+
 def movie(request, movie_id):
-    movie = Movie.objects.get(pk=movie_id)
+    movies = Movie.objects.get(pk=movie_id)
 
     if movie is not None:
-        return render(request, 'movie.html', {'movie': movie})
+        return render(request, 'movie.html', {'movies': movies})
     else:
         return Http404('Movie not FOunds !')
 
