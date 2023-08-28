@@ -6,10 +6,9 @@ from film.forms import UploadForm
 from .models import Movie
 
 def index(request):
-    mymovie = Movie.objects.all()
-    template = loader.get_template('index.html')
+    allmovie = Movie.objects.all()
 
-    return HttpResponse(template.render())
+    return render(request, 'index.html', {'allmovie': allmovie})
 
 def movielist(request):
     mymovie = Movie.objects.all()
