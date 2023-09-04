@@ -7,4 +7,4 @@ class UploadForm(ModelForm):
     image = forms.ImageField()
     class Meta:
         model = Movie
-        fields = ['category', 'name', 'image', 'description']
+        fields = ['categories', 'name', 'image', 'description']

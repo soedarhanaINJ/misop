@@ -8,7 +8,6 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('movies/upload', views.upload, name='upload'),
     path('movies/<int:movie_id>', views.movie, name='movie'),
-    path('movielist/', views.movielist, name='movielist'),
     path('account/', include('user.urls')),
 ]
 

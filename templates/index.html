@@ -5,14 +5,12 @@
                 <div class="row gx-5">
                         <div class="col my-3">
                                 <div class="card my-5" style="width: 18rem;">
-                                        {% for movie in allmovie %}
                                         <img src="{{ movie.image.url }}" class="card-img-top" alt="{{ allmovie.name }}">
                                         <div class="card-body">
                                                 <h5 class="card-title">{{ movie.name }}</h5>
                                                 <p class="card-text">{{ movie.description }}</p>
                                                 <a href="#" class="btn btn-dark">Watch Full MOVIE</a>
                                         </div>
-                                        {% endfor %}
                                 </div>
                         </div>
                 </div>
