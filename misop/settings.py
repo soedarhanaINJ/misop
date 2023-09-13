@@ -27,7 +27,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'film',
-    'user',
 
     # Django crispy form
     'crispy_forms',
@@ -135,6 +134,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Add for Form from crispy_forms
 CRISPY_TEMPLATE_PACK = 'crispy-bootstrap5'
+
 
 # Django-allauth settings
 AUTHENTICATION_BACKENDS = [
