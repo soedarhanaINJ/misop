@@ -16,4 +16,6 @@ class AdminMovieType(admin.ModelAdmin):
     list_display = ('name',)
 
 
-admin.site.register(MovieType)
+@admin.register(MovieType)
+class MovieTypeAdmin(admin.ModelAdmin):
+    list_display = ("id", "name", "slug",)

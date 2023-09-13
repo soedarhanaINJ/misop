@@ -31,6 +31,12 @@ INSTALLED_APPS = [
 
     # Django crispy form
     'crispy_forms',
+
+    # Allauth sets
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -41,6 +47,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #allauth sets middleware
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'misop.urls'
@@ -121,9 +129,29 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # For media settings 
-MEDIA_URL = ''
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # Add for Form from crispy_forms
 CRISPY_TEMPLATE_PACK = 'crispy-bootstrap5'
+
+# Django-allauth settings
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+SITE_ID = 1
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': '130757153471-127g256srmd6gqmj5fnhdnisam6n75a3.apps.googleusercontent.com',
+            'secret': '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',
+            'key': ''
+        }
+    }
+}
+
+LOGIN_REDIRECT_URL = "/"
