@@ -1,36 +1,27 @@
 from django.db import models
 from datetime import date
-from autoslug import AutoSlugField
+
+CHOICE_MOVIETYPE = (
+    (0, 'Kids'),
+    (1, 'teenager'),
+    (2, 'mature'),
+)
 
 
-class BaseModel(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        abstract = True
-
-
-class Category(BaseModel):
+class Category(models.Model):
     name = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from='name')
 
     def __str__(self):
         return self.name
     
-class MovieType(BaseModel):
-    name = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from='name')
+class MovieType(models.Model):
+    type = models.IntegerField(choices=CHOICE_MOVIETYPE, default=1)
 
-    def __str__(self):
-        return self.name
-
-class Movie(BaseModel):
+class Movie(models.Model):
     name = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from='name')
     categories = models.ManyToManyField(Category)
     image = models.ImageField(upload_to='media', blank=True)
-    movie_type = models.ForeignKey(MovieType, on_delete=models.CASCADE)
+    movietype = models.ForeignKey(MovieType, on_delete=models.CASCADE, default=1)
     description = models.TextField()
 
     def __str__(self):

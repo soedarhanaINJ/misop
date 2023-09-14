@@ -7,15 +7,12 @@ class AdminCategory(admin.ModelAdmin):
 admin.site.register(Category, AdminCategory)
 
 class AdminMovie(admin.ModelAdmin):
-    list_display = ('name', 'slug', 'movie_type')
+    list_display = ('name', 'movietype')
     readonly_fields = ('id',)
 
 admin.site.register(Movie, AdminMovie)
 
 class AdminMovieType(admin.ModelAdmin):
-    list_display = ('name',)
+    list_display = ('type',)
 
-
-@admin.register(MovieType)
-class MovieTypeAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "slug",)
+admin.site.register(MovieType, AdminMovieType)

@@ -133,7 +133,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # Add for Form from crispy_forms
-CRISPY_TEMPLATE_PACK = 'crispy-bootstrap5'
+CRISPY_TEMPLATE_PACK = 'uni_form'
 
 
 # Django-allauth settings
