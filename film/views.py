@@ -5,8 +5,11 @@ from django.template import loader
 from film.forms import UploadForm
 from .models import Movie
 
+
 def index(request):
-    return render(request, 'index.html')
+    query = Movie.objects.all()
+
+    return render(request, 'index.html', {'query': query})
 
 def movie(request, movie_id):
     movies = Movie.objects.get(pk=movie_id)
@@ -15,6 +18,8 @@ def movie(request, movie_id):
         return render(request, 'movie.html', {'movies': movies})
     else:
         return Http404('Movie not FOunds !')
+    
+    
 
 # Functions upload for user can upload with herself    
 def upload(request):

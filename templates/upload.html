@@ -6,8 +6,8 @@
     <div class="row my-5">
         <form method="POST" action="{% url 'upload' %}" enctype="multipart/form-data">
             {% csrf_token %}
-            {% crispy form %}
-            {{ form }}
+
+            {{ form|crispy }}
             <button>Submit</button>
         </form>
     </div>

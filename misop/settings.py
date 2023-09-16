@@ -29,7 +29,8 @@ INSTALLED_APPS = [
     'film',
 
     # Django crispy form
-    'crispy_forms',
+    "crispy_forms",
+    "crispy_bootstrap5",
 
     # Allauth sets
     'allauth',
@@ -133,7 +134,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # Add for Form from crispy_forms
-CRISPY_TEMPLATE_PACK = 'uni_form'
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 
 # Django-allauth settings
