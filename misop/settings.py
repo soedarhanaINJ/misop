@@ -83,6 +83,7 @@ DATABASES = {
 }
 
 
+
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -147,12 +148,16 @@ AUTHENTICATION_BACKENDS = [
 
 SITE_ID = 1
 
+
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {
             'client_id': '130757153471-127g256srmd6gqmj5fnhdnisam6n75a3.apps.googleusercontent.com',
             'secret': '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',
             'key': ''
+        },
+        'AUTH_PARAMS': {
+            'access_type': 'online',
         }
     }
 }
