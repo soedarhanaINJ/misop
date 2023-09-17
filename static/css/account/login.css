@@ -73,3 +73,7 @@ body {
     background-color: #000 !important;
     color: #fff;
 }
+
+button.primariAction{
+    color: #000;
+}

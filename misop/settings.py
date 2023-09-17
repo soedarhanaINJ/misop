@@ -14,7 +14,7 @@ SECRET_KEY = 'django-insecure--^=hdt7=$g3=u39(iss@z4(d38!ni9+0h#w&i6co3cv0dvtx++
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -156,5 +156,3 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
-
-LOGIN_REDIRECT_URL = "/"
