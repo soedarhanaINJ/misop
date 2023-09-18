@@ -19,8 +19,7 @@
             </div>
 
             <h4 class="mb-2">{{ user.username }}</h4>
-            <p class="text-muted mb-4">@{{ user.username }} <span class="mx-2">|</span> <a
-                href="#!">{{ user.email }}</a></p>
+            <p class="text-muted mb-4">@{{ user.username }} <span class="mx-2">|</span> {{ user.email }} </p>
                 
             <div class="mb-4 pb-2">
               <!--Icon Facebook -->
@@ -54,9 +53,9 @@
               </button>
 
             </div>
-            <button type="button" class="btn btn-primary btn-rounded btn-lg">
+            <button type="button" class="btn btn-primary btn-rounded"><a href="#" class="btn btn-primary btn-rounded btn-lg">
               Edit Profile
-            </button>
+            </a></button>
           </div>
         </div>
       </div>
