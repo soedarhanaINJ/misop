@@ -1,11 +1,10 @@
 from django.shortcuts import redirect, render
-from django.http import Http404, HttpResponse
-from django.template import loader
+from django.http import Http404
 from allauth.socialaccount.models import SocialAccount
 from allauth.account.models import EmailAddress
 
 from film.forms import UploadForm
-from .models import Movie
+from .models import Movie, UserProfile
 
 
 def index(request):
@@ -45,3 +44,12 @@ def profile(request):
         social_data = user_social_data.extra_data  # this will contain data like profile picture URL, name, etc.
 
     return render(request, 'account/profile.html')
+
+
+def editprofile(request):
+    username = request.user.username
+    email = request.user.email
+    first_name = request.user.first_name
+    last_name = request.user.last_name
+
+    return render(request, 'account/edit_profile.html')
