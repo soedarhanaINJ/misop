@@ -10,7 +10,7 @@
                                         <div class="card-body">
                                                 <h5 class="card-title">{{ x.name }}</h5>
                                                 <p class="card-text">{{ x.description }}</p>
-                                                <a href="#" class="btn btn-dark">Watch Full MOVIE</a>
+                                                <a href="{% url 'moviedetail' %}" class="btn btn-dark">Watch Full MOVIE</a>
                                         </div>
                                         {% endfor %}
                                 </div>

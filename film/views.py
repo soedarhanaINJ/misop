@@ -4,7 +4,7 @@ from allauth.socialaccount.models import SocialAccount
 from allauth.account.models import EmailAddress
 
 from film.forms import UploadForm
-from .models import Movie, UserProfile
+from .models import Movie
 
 
 def index(request):
@@ -53,3 +53,8 @@ def editprofile(request):
     last_name = request.user.last_name
 
     return render(request, 'account/edit_profile.html')
+
+
+def moviedetail(request, movie_id):
+
+    return render(request, 'film/moviedetail.html')
