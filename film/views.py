@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
 from django.http import Http404
+from django.urls import reverse
 from allauth.socialaccount.models import SocialAccount
 from allauth.account.models import EmailAddress
 
@@ -9,16 +10,17 @@ from .models import Movie
 
 def index(request):
     query = Movie.objects.all()
+    context = {
+        'query': query
+    }
 
-    return render(request, 'index.html', {'query': query})
+    return render(request, 'index.html', context)
 
 def movie(request, movie_id):
     movies = Movie.objects.get(pk=movie_id)
 
-    if movie is not None:
-        return render(request, 'film/movie.html', {'movies': movies})
-    else:
-        return Http404('Movie not FOunds !')
+    return render(request, 'film/movie.html', {'movies': movies})
+    
     
     
 
@@ -55,6 +57,7 @@ def editprofile(request):
     return render(request, 'account/edit_profile.html')
 
 
-def moviedetail(request, movie_id):
+def moviedetails(request):
+    movies = Movie.objects.all()
 
-    return render(request, 'film/moviedetail.html')
+    return render(request, 'film/movie.html', {'movies': movies})
