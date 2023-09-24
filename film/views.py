@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.http import Http404
-from django.urls import reverse
+from django.views import generic
 from allauth.socialaccount.models import SocialAccount
 from allauth.account.models import EmailAddress
 
@@ -56,8 +56,6 @@ def editprofile(request):
 
     return render(request, 'account/edit_profile.html')
 
-
-def moviedetails(request):
-    movies = Movie.objects.all()
-
-    return render(request, 'film/movie.html', {'movies': movies})
+class MovieDetails(generic.DetailView):
+    model = Movie
+    template_name = 'film/moviedetail.html'

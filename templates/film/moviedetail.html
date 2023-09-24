@@ -1,6 +1,12 @@
+{% extends 'core/base.html' %}
 
 {% load static %}
 
 <link rel="stylesheet" href="{% static 'css/film/moviedetail.css' %}">
 
-<h1>This is page for detail movie</h1>
+{% block content %}
+    <h1>This is page for detail movie</h1>
+    <p>
+        {{ movie.name }}
+    </p>
+{% endblock %}
