@@ -3,9 +3,9 @@ from django.http import Http404
 from django.views import generic
 from allauth.socialaccount.models import SocialAccount
 from allauth.account.models import EmailAddress
-
-from film.forms import UploadForm
-from .models import Movie
+from django.contrib.auth.decorators import login_required
+from film.forms import UploadForm, EditProfileForm
+from .models import Movie, UserProfile
 
 
 def index(request):
@@ -21,10 +21,19 @@ def movie(request, movie_id):
 
     return render(request, 'film/movie.html', {'movies': movies})
     
-    
+
+def profile(request):
+    email_addresses = EmailAddress.objects.filter(user=request.user)
+    user_social_data = SocialAccount.objects.filter(user=request.user).first()
+
+    if user_social_data:
+        social_data = user_social_data.extra_data  # this will contain data like profile picture URL, name, etc.
+
+    return render(request, 'account/profile.html')    
     
 
-# Functions upload for user can upload with herself    
+# Functions upload for user can upload with herself
+@login_required    
 def upload(request):
     if request.POST:
         form = UploadForm(request.POST, request.FILES)
@@ -38,23 +47,22 @@ def upload(request):
     return render(request, 'film/upload.html', {'form': UploadForm})
 
 
-def profile(request):
-    email_addresses = EmailAddress.objects.filter(user=request.user)
-    user_social_data = SocialAccount.objects.filter(user=request.user).first()
 
-    if user_social_data:
-        social_data = user_social_data.extra_data  # this will contain data like profile picture URL, name, etc.
-
-    return render(request, 'account/profile.html')
-
-
+@login_required
 def editprofile(request):
-    username = request.user.username
-    email = request.user.email
-    first_name = request.user.first_name
-    last_name = request.user.last_name
+    if request.method == 'POST':
+        editprofile_form = EditProfileForm(request.POST, request.FILES)
+        
 
-    return render(request, 'account/edit_profile.html')
+        if editprofile_form.is_valid():
+            editprofile_form.save()
+
+            return redirect('notif_edit_profile.html')
+        
+    else:
+        editprofile_form = EditProfileForm(instance=request.user)
+
+    return render(request, 'account/edit_profile.html', {'editprofile_form': editprofile_form})
 
 class MovieDetails(generic.DetailView):
     model = Movie
