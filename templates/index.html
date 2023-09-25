@@ -9,7 +9,7 @@
                                         <img src="{{ x.image.url }}" class="card-img-top" alt="{{ allmovie.name }}">
                                         <div class="card-body">
                                                 <h5 class="card-title">{{ x.name }}</h5>
-                                                <p class="card-text">{{ x.description }}</p>
+                                                <p class="card-text">{{ x.description | slice:'50' }}</p>
                                                 <a href="{% url 'moviedetails' x.id %}" class="btn btn-dark">Watch Full MOVIE</a>             
                                         </div>
                                         {% endfor %}
