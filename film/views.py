@@ -56,8 +56,6 @@ def editprofile(request):
 
         if editprofile_form.is_valid():
             editprofile_form.save()
-
-            return redirect('notif_edit_profile.html')
         
     else:
         editprofile_form = EditProfileForm(instance=request.user)
