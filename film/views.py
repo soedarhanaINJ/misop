@@ -1,9 +1,12 @@
+from typing import Any
+from django.db import models
 from django.shortcuts import redirect, render
-from django.http import Http404
+from django.urls import reverse_lazy
 from django.views import generic
 from allauth.socialaccount.models import SocialAccount
 from allauth.account.models import EmailAddress
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserChangeForm
 from film.forms import UploadForm, EditProfileForm
 from .models import Movie, UserProfile
 
@@ -47,7 +50,7 @@ def upload(request):
     return render(request, 'film/upload.html', {'form': UploadForm})
 
 
-
+# User can edit their own profile
 @login_required
 def editprofile(request):
     if request.method == 'POST':
@@ -61,6 +64,8 @@ def editprofile(request):
         editprofile_form = EditProfileForm(instance=request.user)
 
     return render(request, 'account/edit_profile.html', {'editprofile_form': editprofile_form})
+
+
 
 class MovieDetails(generic.DetailView):
     model = Movie

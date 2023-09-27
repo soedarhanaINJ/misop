@@ -1,6 +1,4 @@
 from django.db import models
-from datetime import date
-from allauth.account.forms import UserForm
 from django.contrib.auth.models import User
 
 CHOICE_MOVIETYPE = (
@@ -30,11 +28,15 @@ class Movie(models.Model):
     
 
 class UserProfile(models.Model):
-    avatar = models.ImageField(upload_to='avatar', blank=True)
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-    email = models.CharField(max_length=55,  null=True, blank=True)
-    first_name = models.CharField(max_length=255, null=True)
-    last_name = models.CharField(max_length=255, null=True)
+    username = models.CharField(max_length=100, null=False, blank=True)
+    avatar = models.ImageField(default='avatar/BG_BLue.jpeg', upload_to='avatar', blank=True)
+    email = models.CharField(unique=True, max_length=55, blank=True)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
     facebook_url = models.CharField(max_length=255, blank=True)
     x_url = models.CharField(max_length=255, blank=True)
     instagram_url = models.CharField(max_length=255, blank=True)
+
+    def __str__(self):
+        return str(self.user)
