@@ -13,16 +13,12 @@ class UploadForm(ModelForm):
 
 
 class EditProfileForm(ModelForm):
-    avatar = forms.ImageField()
-    username = forms.CharField()
-    email = forms.CharField()
-    first_name = forms.CharField(max_length=100)
-    last_name = forms.CharField(max_length=100)
-    facebook_url = forms.CharField(max_length=255)
-    x_url = forms.CharField(max_length=255)
-    instagram_url = forms.CharField(max_length=255)
-    
-
     class Meta:
         model = UserProfile
-        fields = ['avatar', 'username', 'first_name', 'last_name', 'email', 'facebook_url', 'x_url', 'instagram_url']
+        fields = ['username', 'first_name', 'last_name', 'email', 'facebook_url', 'x_url', 'instagram_url']
+
+
+class AvatarEditProfileForm(ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['avatar']
