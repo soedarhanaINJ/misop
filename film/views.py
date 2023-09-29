@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
 from django.views import generic
-from django.views.generic import ListView
+from django.views.generic import ListView, UpdateView
 from allauth.socialaccount.models import SocialAccount
 from allauth.account.models import EmailAddress
 from django.contrib.auth.decorators import login_required
@@ -17,7 +18,7 @@ def index(request):
     return render(request, 'index.html', context)
 
 class MovieList(ListView):
-    model = Movie
+    model = Movie.objects.all()
     template_name = 'film/movie.html'
 
 
@@ -25,6 +26,40 @@ class MovieDetails(generic.DetailView):
     model = Movie
     template_name = 'film/moviedetail.html'
     
+
+class EditProfilePageView(generic.UpdateView):
+    model = UserProfile
+    template_name = 'editprofile/notif_edit_profile.html'
+    fields = [
+        'username',
+        'first_name',
+        'last_name',
+        'email',
+        'facebook_url',
+        'x_url',
+        'instagram_url'
+    ]
+
+    success_url = reverse_lazy('index')
+
+# User can edit their own profile
+@login_required
+def editprofile(request):
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, request.FILES, instance=UserProfile(user=request.user))
+        print(request.FILES)
+
+        if form.is_valid():
+            form.save()
+        
+        return redirect(profile)
+    
+    else:
+        form = EditProfileForm(instance=request.user.userprofile)
+
+    return render(request, 'account/edit_profile.html', {'form': EditProfileForm})
+
+
 
 def profile(request):
     email_addresses = EmailAddress.objects.filter(user=request.user)
@@ -35,24 +70,6 @@ def profile(request):
 
     return render(request, 'account/profile.html')    
     
-
-
-# User can edit their own profile
-@login_required
-def editprofile(request):
-    if request.POST:
-        editprofile_form = EditProfileForm(request.POST, request.FILES, instance=UserProfile(user=request.user))
-        print(request.FILES)
-
-        if editprofile_form.is_valid():
-            editprofile_form.save()
-        
-        return redirect(profile)
-
-    return render(request, 'account/edit_profile.html', {'editprofile_form': EditProfileForm})
-
-
-
 
 
 # Functions upload for user can upload movie with herself
