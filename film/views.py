@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import generic
-from django.views.generic import ListView, UpdateView
+from django.views.generic import ListView, DeleteView
 from allauth.socialaccount.models import SocialAccount
 from allauth.account.models import EmailAddress
 from django.contrib.auth.decorators import login_required
@@ -26,6 +26,12 @@ class MovieDetails(generic.DetailView):
     model = Movie
     template_name = 'film/moviedetail.html'
     
+
+class DeleteMovieView(generic.DeleteView):
+    model = Movie
+    template_name = 'film/delete_movie.html'
+    success_url = reverse_lazy('index')
+
 
 class EditProfilePageView(generic.UpdateView):
     model = UserProfile
@@ -72,7 +78,7 @@ def profile(request):
     
 
 
-# Functions upload for user can upload movie with herself
+# Functions upload for user can upload movie with herself   
 @login_required    
 def upload(request):
     if request.POST:

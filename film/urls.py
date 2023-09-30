@@ -1,6 +1,6 @@
 from . import views
 from django.urls import path
-from film.views import MovieDetails, MovieList, EditProfilePageView
+from film.views import MovieDetails, MovieList, EditProfilePageView, DeleteMovieView
 
 
 urlpatterns = [
@@ -10,4 +10,5 @@ urlpatterns = [
     path('accounts/profile/', views.profile, name='profile'),
     path('<int:pk>/editprofilepage/', EditProfilePageView.as_view(), name='edit_profile_page'),
     path('details/<int:pk>', MovieDetails.as_view(), name='moviedetails'),
+    path('movies/<int:pk>/delete', DeleteMovieView.as_view(), name='delete_movie'),
 ]

@@ -1,0 +1,26 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/film/moviedetail.css' %}">
+
+{% block content %}
+    <div class="card text-center">
+        <div class="card-header mt-">
+            {{ movie.name }}
+        </div>
+
+        <div class="card-body">
+            <img class="card-title" src="{{ movie.image.url }}" alt="{{ movie.name }}"></img>                       
+        </div>
+
+        <div class="card-footer text-muted">
+            <form method="POST">
+                {% csrf_token %}
+                <button class="btn btn-danger">
+                    Delete
+                </button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
