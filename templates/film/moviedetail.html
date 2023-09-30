@@ -22,13 +22,13 @@
                 </a>
             </i>
         </div>
-
-        <div class="card-footer text-muted">
-            {% if user.is_authenticated %}
-            <a class="btn btn-danger" href="{% url 'delete_movie' movie.pk %}">
-                Delete This Movie !!!
-              </a>
-              {% endif %}
-        </div>
+        
+        {% if user.is_authenticated %}
+            <div class="card-footer text-muted">
+                <a class="btn btn-danger" href="{% url 'delete_movie' movie.pk %}">
+                    Delete This Movie !!!
+                </a>
+            </div>
+        {% endif%}
     </div>
 {% endblock %}

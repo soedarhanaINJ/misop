@@ -30,7 +30,7 @@ class Movie(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     username = models.CharField(max_length=100, null=False, blank=True)
-    avatar = models.ImageField(upload_to='avatar', blank=True)
+    avatar = models.ImageField(default='avatar/avatar.jpg', upload_to='avatar', blank=True)
     email = models.CharField(unique=True, max_length=55, null=True, blank=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)

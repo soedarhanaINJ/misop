@@ -1,11 +1,13 @@
-from django.shortcuts import redirect, render
+from django.contrib.auth.models import User
+from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
-from django.views.generic import ListView, DeleteView
-from allauth.socialaccount.models import SocialAccount
-from allauth.account.models import EmailAddress
+from django.views.generic import ListView, DeleteView, DetailView, UpdateView, TemplateView
 from django.contrib.auth.decorators import login_required
-from film.forms import UploadForm, EditProfileForm
+from film.forms import UploadForm, EditProfileForm, AvatarEditProfileForm
 from .models import Movie, UserProfile
 
 
@@ -22,21 +24,22 @@ class MovieList(ListView):
     template_name = 'film/movie.html'
 
 
-class MovieDetails(generic.DetailView):
+class MovieDetailsView(DetailView):
     model = Movie
     template_name = 'film/moviedetail.html'
     
 
-class DeleteMovieView(generic.DeleteView):
+class DeleteMovieView(DeleteView):
     model = Movie
     template_name = 'film/delete_movie.html'
     success_url = reverse_lazy('index')
 
 
-class EditProfilePageView(generic.UpdateView):
+class EditProfilePageView(UpdateView):
     model = UserProfile
-    template_name = 'editprofile/notif_edit_profile.html'
+    template_name = 'account/edit_profile.html'
     fields = [
+        'avatar',
         'username',
         'first_name',
         'last_name',
@@ -45,36 +48,32 @@ class EditProfilePageView(generic.UpdateView):
         'x_url',
         'instagram_url'
     ]
-
     success_url = reverse_lazy('index')
 
-# User can edit their own profile
-@login_required
-def editprofile(request):
-    if request.method == 'POST':
-        form = EditProfileForm(request.POST, request.FILES, instance=UserProfile(user=request.user))
-        print(request.FILES)
-
-        if form.is_valid():
-            form.save()
+    def get_context_data(self, *args, **kwargs):
+        users = UserProfile.objects.all()
+        context = super(EditProfilePageView, self).get_context_data(*args, **kwargs)
         
-        return redirect(profile)
+        page_user = get_object_or_404(UserProfile, id=self.kwargs['pk'])
+
+        context['page_user'] = page_user
+        
+        return context
+
+
+class UserProfileView(DetailView):
+    model = UserProfile
+    template_name = 'account/profile.html'
     
-    else:
-        form = EditProfileForm(instance=request.user.userprofile)
+    def get_context_data(self, *args, **kwargs):
+        users = UserProfile.objects.all()
+        context = super(UserProfileView, self).get_context_data(*args, **kwargs)
+        
+        page_user = get_object_or_404(UserProfile, id=self.kwargs['pk'])
 
-    return render(request, 'account/edit_profile.html', {'form': EditProfileForm})
-
-
-
-def profile(request):
-    email_addresses = EmailAddress.objects.filter(user=request.user)
-    user_social_data = SocialAccount.objects.filter(user=request.user).first()
-
-    if user_social_data:
-        social_data = user_social_data.extra_data  # this will contain data like profile picture URL, name, etc.
-
-    return render(request, 'account/profile.html')    
+        context['page_user'] = page_user
+        
+        return context
     
 
 

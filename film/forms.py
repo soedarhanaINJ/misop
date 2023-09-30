@@ -19,6 +19,7 @@ class EditProfileForm(ModelForm):
 
 
 class AvatarEditProfileForm(ModelForm):
+    avatar = forms.ImageField(label='Profile Picture')
     class Meta:
         model = UserProfile
         fields = ['avatar']

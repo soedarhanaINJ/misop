@@ -26,7 +26,7 @@
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="{% url 'profile' %}">Profile</a>
+                            <a class="nav-link" aria-current="page" href="{% url 'profile_view' user.userprofile.id %}">Profile</a>
                         </li>
                         <li class="nav-item">
                             <a type="button" class="nav-link" aria-current="page" href="{% url 'account_logout' %}">Logout</a>

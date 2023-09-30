@@ -1,5 +1,6 @@
 {% extends 'core/base.html' %} 
 {% load crispy_forms_tags %}
+
 {% load static %}
 
 {% block content %}
@@ -9,32 +10,36 @@
 
         <div class="row">
                   <!-- left column -->
-                  <div class="col-md-3">
-                    <div class="text-center">
-                      <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" class="avatar rounded-circle img-thumbnail" alt="avatar">
-                      <h6>Upload a different photo...</h6>
-                      
-                      <input type="file" class="form-control">
+                  <div class="col-md-2">
+                    <div class="text-center">               
+                      <img src="{{ page_user.avatar.url }}" class="avatar rounded float-start img-thumbnail" alt="avatar">
                     </div>
                   </div>
                   
                   <!-- edit form column -->
                   <div class="col-md-9 personal-info">
+                    {% if messages %}
+                      
+                      {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}" role="alert">
+                          <a class="panel-close close" data-dismiss="alert">×</a> 
+                          <i class="fa fa-coffee"></i>
+                          <strong>{{ massage }}</strong>
+                        </div>
+                      {% endfor %}
 
-                    <div class="alert alert-info alert-dismissable">
-                      <a class="panel-close close" data-dismiss="alert">×</a> 
-                      <i class="fa fa-coffee"></i>
-                      This is an <strong>.alert</strong>. Change your profile data on here.
-                    </div>
+                    {% endif %}
                     
                     <form class="form-horizontal" role="form" method="POST" enctype="multipart/form-data">
 
                       {% csrf_token %}
-                      {{ editprofile_form | crispy }}
+
+                      {{ form | crispy }}
+                      {{ avatar_form | crispy }}
                       
                       
                       <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
-                        <button class="btn btn-primary me-md-2">Edit Profile</button>
+                        <button type="submit" class="btn btn-primary me-md-2">Edit Profile</button>
                       </div>
                              
                     </form>
