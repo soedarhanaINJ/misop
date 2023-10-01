@@ -1,12 +1,11 @@
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse_lazy
-from django.http import HttpResponseRedirect
-from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views import generic
-from django.views.generic import ListView, DeleteView, DetailView, UpdateView, TemplateView
+from django.views.generic import ListView, DeleteView, DetailView, UpdateView
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+
 from film.forms import UploadForm, EditProfileForm, AvatarEditProfileForm
 from .models import Movie, UserProfile
 
@@ -106,3 +105,21 @@ def upload(request):
         return redirect(index)
 
     return render(request, 'film/upload.html', {'form': UploadForm})
+
+
+def register(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+
+            # Create UserProfile after registering user
+            profile = UserProfile(user=user)
+            profile.save()
+
+            # Log the user in and redirect them
+            login(request, user)
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    return render(request, 'account/signup.html', {'form': form})

@@ -11,7 +11,6 @@ admin.site.register(Movie, AdminMovie)
 
 class AdminUserProfile(admin.ModelAdmin):
     list_display = ('username', 'email', 'first_name', 'last_name')
-    readonly_fields = ('id',)
 
 admin.site.register(UserProfile, AdminUserProfile)
 
