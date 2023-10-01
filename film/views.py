@@ -19,35 +19,50 @@ def index(request):
 
     return render(request, 'index.html', context)
 
+
+# MOVIE LIST
 class MovieList(ListView):
     model = Movie.objects.all()
     template_name = 'film/movie.html'
 
 
+
+# DETAILING'S MOVIE
 class MovieDetailsView(DetailView):
     model = Movie
     template_name = 'film/moviedetail.html'
-    
 
+
+# DELETE MOVIE
 class DeleteMovieView(DeleteView):
     model = Movie
     template_name = 'film/delete_movie.html'
     success_url = reverse_lazy('index')
 
 
+# EDIT THE AVATAR PICTURE
+class EditAvatarView(UpdateView):
+    model = UserProfile
+    template_name = 'account/edit_avatar.html'
+    form_class = AvatarEditProfileForm
+    success_url = reverse_lazy('index')
+
+    def get_context_data(self, *args, **kwargs):
+        users = UserProfile.objects.all()
+        context = super(EditAvatarView, self).get_context_data(*args, **kwargs)
+        
+        page_user = get_object_or_404(UserProfile, id=self.kwargs['pk'])
+
+        context['page_user'] = page_user
+        
+        return context
+
+
+# EDIT DATA USER PROFILE
 class EditProfilePageView(UpdateView):
     model = UserProfile
     template_name = 'account/edit_profile.html'
-    fields = [
-        'avatar',
-        'username',
-        'first_name',
-        'last_name',
-        'email',
-        'facebook_url',
-        'x_url',
-        'instagram_url'
-    ]
+    form_class = EditProfileForm
     success_url = reverse_lazy('index')
 
     def get_context_data(self, *args, **kwargs):
@@ -61,6 +76,7 @@ class EditProfilePageView(UpdateView):
         return context
 
 
+# PROFILE VIEW
 class UserProfileView(DetailView):
     model = UserProfile
     template_name = 'account/profile.html'
