@@ -107,6 +107,7 @@ def upload(request):
     return render(request, 'film/upload.html', {'form': UploadForm})
 
 
+# Function Registrations for New User
 def register(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)
