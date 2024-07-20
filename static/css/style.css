@@ -1,0 +1,28 @@
+:root {
+    --bg : #000000;
+}
+
+/* -----------
+    HEADER
+----------- */
+
+.header {
+    background-color: var(--bg);
+}
+
+.header__logo {
+    padding: 20px 0 17px;
+}
+
+.header__menu ul li {
+	list-style: none;
+	display: inline-block;
+	position: relative;
+	margin-right: 16px;
+}
+
+/* ---------------
+    end HEADER
+--------------- */  
+
+
